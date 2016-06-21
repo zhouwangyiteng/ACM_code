@@ -4,7 +4,7 @@
 #include<iostream>
 #include<vector>
 #include<math.h>
-#include<algorithm>//sortËùÔÚ¿â£¬ÅÅĞòÓÃ
+#include<algorithm>
 using namespace std;
 #define MAXN 10
 int n,m,t,top;
@@ -13,14 +13,12 @@ int flag[8][2]={{-1,-2},{1,-2},{-2,-1},{2,-1},{-2,1},{2,1},{-1,2},{1,2}};
 bool yes;
 struct POS
 {
-	int y;
-	char x;
+	int x;
+	char y;
 }path[MAXN*MAXN];
 
 void dfs(int r,int c,int step)
 {	
-			path[top].y=r+1;
-			path[top++].x=c+'A';
 	if(step==n*m) 
 	{	
 		yes=true;
@@ -33,6 +31,8 @@ void dfs(int r,int c,int step)
 		if(nx>=0&&nx<n&&ny>=0&&ny<m&&idx[nx][ny]==0)
 		{
 			idx[nx][ny]=1;
+			path[top].x=nx+1;
+			path[top++].y=ny+'A';
 			dfs(nx,ny,step+1);
 			if(yes) return;
 			idx[nx][ny]=0;
@@ -53,12 +53,14 @@ int main()
 		yes=false;
 		memset(idx,0,sizeof(idx));
 		top=0;
+		path[top].x=1;
+		path[top++].y='A';
 		idx[0][0]=1;
 		dfs(0,0,1);
 		if(yes)
 		{
 			for(int i=0;i<top;i++)
-				cout<<path[i].x<<path[i].y;
+				cout<<path[i].y<<path[i].x;
 			cout<<endl;
 		}
 	 	else
