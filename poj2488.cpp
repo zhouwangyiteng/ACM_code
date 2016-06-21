@@ -7,7 +7,7 @@
 #include<algorithm>
 using namespace std;
 #define MAXN 10
-int n,m,t,top;
+int n,m,t;
 int idx[MAXN][MAXN];
 int flag[8][2]={{-1,-2},{1,-2},{-2,-1},{2,-1},{-2,1},{2,1},{-1,2},{1,2}};
 bool yes;
@@ -31,15 +31,13 @@ void dfs(int r,int c,int step)
 		if(nx>=0&&nx<n&&ny>=0&&ny<m&&idx[nx][ny]==0)
 		{
 			idx[nx][ny]=1;
-			path[top].x=nx+1;
-			path[top++].y=ny+'A';
+			path[step].x=nx+1;
+			path[step].y=ny+'A';
 			dfs(nx,ny,step+1);
 			if(yes) return;
 			idx[nx][ny]=0;
-			top--;
 		}
 	}
-	return;
 }
 
 int main()
@@ -52,20 +50,18 @@ int main()
 		cout<<"Scenario #"<<++icase<<':'<<endl;
 		yes=false;
 		memset(idx,0,sizeof(idx));
-		top=0;
-		path[top].x=1;
-		path[top++].y='A';
+		path[0].x=1;
+		path[0].y='A';
 		idx[0][0]=1;
 		dfs(0,0,1);
 		if(yes)
 		{
-			for(int i=0;i<top;i++)
+			for(int i=0;i<n*m;i++)
 				cout<<path[i].y<<path[i].x;
-			cout<<endl;
+			cout<<endl<<endl;
 		}
 	 	else
-	 		cout<<"impossible"<<endl;
- 		cout<<endl;
+	 		cout<<"impossible"<<endl<<endl;
 	}    
     
 	return 0;  
