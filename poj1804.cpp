@@ -2,45 +2,56 @@
 #include<stdio.h>
 #include<string.h>
 #include<iostream>
+#include<stack>
 #include<vector>
 #include<math.h>
 #include<algorithm>
 using namespace std;
-short hash[25000001];
+#define MAXN 1001
+
+int a[MAXN],c[MAXN];
+int t,n,cnt;
+
+void MergeSort(int l,int r)
+{
+	if(l+1<r)
+	{
+		int i,j,tmp,mid;
+		mid=(l+r)/2;
+		MergeSort(l,mid);
+		MergeSort(mid,r);
+		tmp=l;
+		for(i=l,j=mid;i<mid&&j<r;)
+		{
+			if(a[i]>a[j])
+			{
+				c[tmp++]=a[j++];
+				cnt+=mid-i;
+			}
+			else
+				c[tmp++]=a[i++];
+		}
+		if(j<r) for(;j<r;j++) c[tmp++]=a[j];
+		else for(;i<mid;i++) c[tmp++]=a[i];
+		for(i=l;i<r;i++)
+			a[i]=c[i];
+	}
+}
 
 int main()
 {
-    int a1,a2,a3,a4,a5;
-    cin>>a1>>a2>>a3>>a4>>a5;
-    memset(hash,0,sizeof(hash));
-    for(int x1=-50;x1<=50;x1++)
-    {
-		if(!x1) continue;
-		for(int x2=-50;x2<=50;x2++)
-		{
-			if(!x2) continue;
-			int sum=-1*(a1*x1*x1*x1+a2*x2*x2*x2);
-			if(sum<0) sum+=25000000;
-			hash[sum]++;
-		}
-	}
-	int solution=0;
-	for(int x3=-50;x3<=50;x3++)
+	cin>>t;
+	int icase=0;
+	while(t--)
 	{
-		if(!x3) continue;
-		for(int x4=-50;x4<=50;x4++)
-		{
-			if(!x4) continue;
-			for(int x5=-50;x5<=50;x5++)
-			{
-				if(!x5) continue;
-				int sum=a3*x3*x3*x3+a4*x4*x4*x4+a5*x5*x5*x5;
-				if(sum<0) sum+=25000000;
-				if(hash[sum]) solution+=hash[sum];
-			}
-		}
-	}
-	cout<<solution<<endl;
+		cin>>n;
+		for(int i=0;i<n;i++)
+			scanf("%d",&a[i]);
+		cnt=0;
+		MergeSort(0,n);
+		cout<<"Scenario #"<<++icase<<":"<<endl;
+		cout<<cnt<<endl<<endl;
+	}    
     
 	return 0;  
 }    

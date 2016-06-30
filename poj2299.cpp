@@ -48,9 +48,6 @@ int main()
 			scanf("%d",&num[i]);
 		cnt=0;
 		MergeSort(0,n);
-		for(int i=0;i<n;i++)
-			cout<<num[i]<<' ';
-		cout<<endl;
 		cout<<cnt<<endl;
 	}	 
     
