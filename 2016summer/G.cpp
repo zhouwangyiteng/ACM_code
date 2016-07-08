@@ -26,9 +26,9 @@ int main()
 					cnt++;
 				else
 					if(cnt&1)
-						ans+=2;
+						ans++;
 			}
-		cout<<ans+cnt<<endl;
+		cout<<ans+cnt/2<<endl;
 				
 	}
 
