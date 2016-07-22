@@ -44,7 +44,8 @@ char q[5];
 
 void init(int i,int j,int k)
 {
-	d[k].l=i;d[k].r=j;
+	d[k].l=i;
+	d[k].r=j;
 	if(i==j)
 	{
 		d[k].c=r[i];
@@ -58,7 +59,7 @@ void init(int i,int j,int k)
 
 int query(int s,int i,int j)
 {
-	if(i==d[s].l&&j==d[s].r)
+	if(i==d[s].l && j==d[s].r)
 		return d[s].c;
 	int m=(d[s].l+d[s].r)>>1;
 	if(j<=m)
@@ -71,8 +72,6 @@ int query(int s,int i,int j)
 
 void update(int s,int i,int j)
 {
-	if(j>d[s].c)
-		d[s].c=j;
 	if(i==d[s].r&&i==d[s].l)
 	{
 		d[s].c=j;
@@ -83,6 +82,7 @@ void update(int s,int i,int j)
 		update(s<<1,i,j);
 	else
 		update(2*s+1,i,j);
+	d[s].c=max(d[2*s].c,d[2*s+1].c);
 }
 
 int main()
