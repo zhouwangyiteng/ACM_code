@@ -29,7 +29,7 @@ int main()
 		memset(dp,0,sizeof(dp));
 		for(int i=1;i<=n;i++)
 			for(int v=m;v>=w[i];v--)
-				dp[v]=MAX(dp[v],dp[v-	w[i]]+d[i]);
+				dp[v]=MAX(dp[v],dp[v-w[i]]+d[i]);
 		cout<<dp[m]<<endl;
 	}
 
