@@ -24,7 +24,7 @@ using namespace std;
 #define Y second
 #define ll long long
 #define INF 0x3f3f3f
-#define MAXN 100005
+#define MAXN 1000000
 #define PB(X) push_back(X)
 #define MP(X,Y) make_pair(X,Y)
 #define REP(x,y) for(int x=0;x<y;x++)
@@ -33,31 +33,44 @@ using namespace std;
 #define CLR(A,X) memset(A,X,sizeof(A))
 
 int a[MAXN];
-int n,s,t;
+int n;
+map<int,int> mp;
+set<int> num;
 
 int main()
 {
-	cin>>t;
-	while(t--)
+	scanf("%d",&n);
+	mp.clear();
+	num.clear();
+	for(int i=0;i<n;i++)
 	{
-		scanf("%d%d",&n,&s);
-		for(int i=0;i<n;i++)
-			scanf("%d",a+i);
-		int sum,i,j,ans;
-		ans=n+1;i=0;j=0;sum=0;
-		while(1)
-		{
-			while(sum<s&&j<n)
-				sum+=a[j++];
-			if(sum<s)
-				break;
-			ans=min(ans,j-i);
-			sum-=a[i++];
-		}
-		if(ans>n)
-			ans=0;
-		cout<<ans<<endl;
+		scanf("%d",a+i);
+		num.insert(a[i]);
 	}
+	int sum,i,j,ans,s;
+	s=num.size();
+	ans=n+1;i=0;j=0;sum=0;
+	while(1)
+	{
+		while(sum<s&&j<n)
+		{
+			if(mp[a[j]]==0)
+				sum++;
+			mp[a[j]]++;
+			j++;
+		}
+		if(sum<s)
+			break;
+		ans=min(ans,j-i);
+		mp[a[i]]--;
+		if(mp[a[i]]==0)
+			sum--;
+		i++;
+	}
+	if(ans>n)
+		ans=0;
+	cout<<ans<<endl;
+	
 
 	return 0;
 }
