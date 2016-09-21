@@ -57,7 +57,7 @@ int main()
 						dp[i][j]=dp[i-1][j-1]+1;
 				else
 					dp[i][j]=0;
-				if(dp[i][j]>ans)
+				if(dp[i][j]>=ans)
 				{
 					mi=i;
 					mj=j;
